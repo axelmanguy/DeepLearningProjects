@@ -1,4 +1,10 @@
 #-*-coding:utf8 -*
+#############################
+#       MINI Project 2      #
+#         test file         #
+#                           #
+# Version 6                 #
+#############################
 import model
 from model import Linear, TanhS, ReLu, MSELoss, Sequential, Module, SGD, Dropout
 from torch import FloatTensor
@@ -12,29 +18,37 @@ from torch import Tensor
 
 import random
 
-
-
-
-# Example of custom model
+#######################################
+# Class Custom_Model                  #
+# custom model defined for testing    #
+#######################################
 class Custom_Model(Module):
 	def __init__(self):
+        #contructor
+        #model inherits from the module class
 		Module.__init__(self)
+        #the model is constitued of 2 linear layer with activation layer
 		self.l1 = Sequential(Linear(2, 16), ReLu(), Linear(16, 92))
 		self.s1 = TanhS()
 		self.l2 = Linear(92, 2)
 	
 	def forward(self, input):
+        #forward pass defined as in pytorch
 		input = self.l1.forward(input)
 		output = self.l2.forward(self.s1.forward(input))
 		return output
 
 	def backward(self, dlp):
+        #backward pass is only backward on all layers
 		dlp = self.l2.backward(dlp)
 		dlp = self.s1.backward(dlp)
 		dlp = self.l1.backward(dlp)
 		return dlp
 
-
+#######################################
+# Function create_deep_model          #
+# create a MLP with Pytorch           #
+#######################################
 def create_deep_model():
     return nn.Sequential(
         nn.Linear(2, 4),
@@ -52,7 +66,11 @@ def create_deep_model():
         nn.Linear(128, 2)
     )
 
-# Generating sample, from a practical session
+#######################################
+# Function generate_disc_set          #
+# Generate the toy dataset            #
+# taken from practical sessions       #
+#######################################
 def generate_disc_set(nb):
     input = Tensor(nb, 2).uniform_(0, 1)
     test_target = Tensor(nb, 2).fill_(0.0)
