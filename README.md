@@ -7,8 +7,8 @@ The goal of this project is to implement a neural network to predict the lateral
 (left or right) from the EEG recording.
 Several neural networks architectures have been tested
 
-- Multilayer Perceptron : 26 %
-- Convolutional Neural Network : 
+- Multilayer Perceptron : 26 % error
+- Convolutional Neural Network : 25 % error
 - Recurent Neural Network (basic version) : 23 % error
 - Long Short Term Memory : 17% error
 
